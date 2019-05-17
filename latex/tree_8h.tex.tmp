@@ -1,0 +1,86 @@
+\hypertarget{tree_8h}{}\section{tree.\+h File Reference}
+\label{tree_8h}\index{tree.\+h@{tree.\+h}}
+{\ttfamily \#include \char`\"{}std.\+h\char`\"{}}\newline
+Include dependency graph for tree.\+h\+:
+% FIG 0
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnode}{node}
+\begin{DoxyCompactList}\small\item\em Internal struct for containing tree data. \end{DoxyCompactList}\item 
+struct \hyperlink{structtree}{tree}
+\begin{DoxyCompactList}\small\item\em Struct for for a given tree node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{tree_8h_a045a0fba05ba5516b3c23b6a633b87c1}{tree\+\_\+add} (struct \hyperlink{structtree}{tree} $\ast$$\ast$\hyperlink{structtree}{tree}, int($\ast$compare)(const void $\ast$lhs, const void $\ast$rhs), const void $\ast$key, void $\ast$value)
+\begin{DoxyCompactList}\small\item\em Adds a key value pair, to the given tree, orderd by the given compare function. \end{DoxyCompactList}\item 
+void $\ast$$\ast$ \hyperlink{tree_8h_af5857e26627586b71d06422f679cbf14}{tree\+\_\+get} (struct \hyperlink{structtree}{tree} $\ast$$\ast$\hyperlink{structtree}{tree}, int($\ast$compare)(const void $\ast$lhs, const void $\ast$rhs), const void $\ast$key)
+\begin{DoxyCompactList}\small\item\em Gets The value by the accociated key. \end{DoxyCompactList}\item 
+int \hyperlink{tree_8h_a91e6ed5d4bfc8167287c981158f590cd}{tree\+\_\+join} (struct \hyperlink{structtree}{tree} $\ast$\hyperlink{structtree}{tree}, int($\ast$compare)(const void $\ast$lhs, const void $\ast$rhs), F\+I\+LE $\ast$stream, const char $\ast$seperator)
+\begin{DoxyCompactList}\small\item\em Writes then given tree, with the left-\/$>$right ordering, to the given stream. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{tree_8h_a10246e6cb6c281b392e707037661fcd0}\label{tree_8h_a10246e6cb6c281b392e707037661fcd0}} 
+size\+\_\+t {\bfseries tree\+\_\+combine} (struct \hyperlink{structtree}{tree} $\ast$$\ast$, int($\ast$)(const void $\ast$, const void $\ast$), struct \hyperlink{structtree}{tree} $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{tree_8h_a045a0fba05ba5516b3c23b6a633b87c1}\label{tree_8h_a045a0fba05ba5516b3c23b6a633b87c1}} 
+\index{tree.\+h@{tree.\+h}!tree\+\_\+add@{tree\+\_\+add}}
+\index{tree\+\_\+add@{tree\+\_\+add}!tree.\+h@{tree.\+h}}
+\subsubsection{\texorpdfstring{tree\+\_\+add()}{tree\_add()}}
+{\footnotesize\ttfamily int tree\+\_\+add (\begin{DoxyParamCaption}\item[{struct \hyperlink{structtree}{tree} $\ast$$\ast$}]{tree,  }\item[{int($\ast$)(const void $\ast$lhs, const void $\ast$rhs)}]{compare,  }\item[{const void $\ast$}]{key,  }\item[{void $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Adds a key value pair, to the given tree, orderd by the given compare function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & The tree, which to add the key value pair. \\
+\hline
+{\em compare} & The callback function, which to order the tree by. \\
+\hline
+{\em key} & The key value, which is used to order the data in the tree. \\
+\hline
+{\em value} & Specifes the data to the given key. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tree_8h_af5857e26627586b71d06422f679cbf14}\label{tree_8h_af5857e26627586b71d06422f679cbf14}} 
+\index{tree.\+h@{tree.\+h}!tree\+\_\+get@{tree\+\_\+get}}
+\index{tree\+\_\+get@{tree\+\_\+get}!tree.\+h@{tree.\+h}}
+\subsubsection{\texorpdfstring{tree\+\_\+get()}{tree\_get()}}
+{\footnotesize\ttfamily void $\ast$$\ast$ tree\+\_\+get (\begin{DoxyParamCaption}\item[{struct \hyperlink{structtree}{tree} $\ast$$\ast$}]{tree,  }\item[{int($\ast$)(const void $\ast$lhs, const void $\ast$rhs)}]{compare,  }\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Gets The value by the accociated key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & The tree, which to retrive the value from. \\
+\hline
+{\em compare} & The callback function, specifies the order of the tree. \\
+\hline
+{\em key} & The key, which accociates, the value to be retrived. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{tree_8h_a91e6ed5d4bfc8167287c981158f590cd}\label{tree_8h_a91e6ed5d4bfc8167287c981158f590cd}} 
+\index{tree.\+h@{tree.\+h}!tree\+\_\+join@{tree\+\_\+join}}
+\index{tree\+\_\+join@{tree\+\_\+join}!tree.\+h@{tree.\+h}}
+\subsubsection{\texorpdfstring{tree\+\_\+join()}{tree\_join()}}
+{\footnotesize\ttfamily int tree\+\_\+join (\begin{DoxyParamCaption}\item[{struct \hyperlink{structtree}{tree} $\ast$}]{tree,  }\item[{int($\ast$)(const void $\ast$lhs, const void $\ast$rhs)}]{compare,  }\item[{F\+I\+LE $\ast$}]{stream,  }\item[{const char $\ast$}]{seperator }\end{DoxyParamCaption})}
+
+
+
+Writes then given tree, with the left-\/$>$right ordering, to the given stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tree} & The tree, which to write to the stream. \\
+\hline
+{\em compare} & The callback function, with which to print the key value pairs. \\
+\hline
+{\em stream} & The stream which is written to. \\
+\hline
+\end{DoxyParams}
