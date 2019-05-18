@@ -37,11 +37,12 @@ int tree_add(struct tree ** tree, int(*compare)(const void* lhs, const void* rhs
 */
 void ** tree_get(struct tree ** tree, int(*compare)(const void* lhs, const void* rhs), const void* key);
 
-/*! \fn int tree_join(struct tree* tree, int(*print)(const void* lhs, const void* rhs), FILE* stream, const char* seperator)
+/*! \fn int tree_join(struct tree* tree, int(*print)(FILE* stream, const void* lhs, const void* rhs), FILE* stream, const char* seperator)
     \brief Writes then given tree, with the left->right ordering, to the given stream.
     \param tree The tree, which to write to the stream.
     \param print The callback function, with which to print the key value pairs.
     \param stream The stream which is written to.
+    \param seperator Specifes the string, placed between individual prints.
 */
 int tree_join(struct tree* tree, int(*print)(FILE* stream, const void* lhs, const void* rhs), FILE* stream, const char* seperator);
 
