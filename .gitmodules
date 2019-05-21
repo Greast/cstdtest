@@ -1,0 +1,3 @@
+[submodule "cstdlib"]
+	path = cstdlib
+	url = https://github.com/Greast/cstdlib
