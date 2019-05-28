@@ -3,8 +3,11 @@
 #include "cstdlib/std.h"
 #include "cstdlib/tree.h"
 
+/*! \file
+    \brief This header file contains all the macros nessecery for the testsuite.
+*/
+
 struct test_data{
-  struct list * dependecies;
   const char * path;
   int(*test_function)(FILE * stream);
   size_t flags;
@@ -13,9 +16,7 @@ struct test_data{
 #define STRINGIZE(x) STRINGIZE2(x)
 #define STRINGIZE2(x) #x
 #define LINE_STRING STRINGIZE(__LINE__)
-
 #ifdef TEST
-#define main no_main
 #define ADD_TEST_FUNCTION(test_tree, name) \
   __attribute__((constructor)) \
   void __init_##name__(){ \

@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include "test.h"
+
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
@@ -14,7 +15,7 @@ struct test_function_result{
   const int return_code;
 };
 
-void pthread_crash_handler(int signum){
+void cstdtest_pthread_crash_handler(int signum){
   struct test_function_result tfr = {
     .string = NULL,
     .len = 0,
@@ -34,7 +35,7 @@ int run_test(FILE * stream, struct test_data * test){
 void * pthread_run_test(void * args){
   struct sigaction action = {
     .sa_flags = SA_RESETHAND,
-    .sa_handler = pthread_crash_handler
+    .sa_handler = cstdtest_pthread_crash_handler
   };
   sigaction(SIGSEGV, &action, NULL);
   struct test_data * td = args;
@@ -98,18 +99,16 @@ int parrallel_test(FILE* stream, const size_t num_cores, struct list * list){
     }
   }
   fprintf(stream, "Total : %zu, ", ct.succeded + ct.failed + ct.skipped);
-  fprintf(stream, ANSI_COLOR_GREEN "Succeded : %zu, "ANSI_COLOR_RESET, ct.succeded );
-  fprintf(stream, ANSI_COLOR_RED "Failed : %zu, "ANSI_COLOR_RESET, ct.failed );
-  fprintf(stream, ANSI_COLOR_YELLOW "Skipped : %zu\n"ANSI_COLOR_RESET, ct.skipped );
+  fprintf(stream, ANSI_COLOR_GREEN  "Succeded : %zu, "ANSI_COLOR_RESET, ct.succeded );
+  fprintf(stream, ANSI_COLOR_RED    "Failed : %zu, "  ANSI_COLOR_RESET, ct.failed );
+  fprintf(stream, ANSI_COLOR_YELLOW "Skipped : %zu\n" ANSI_COLOR_RESET, ct.skipped );
   return 0;
 }
 
-struct tree *ALL_TESTS = NULL;
-#ifdef main
-#define save main
-#undef main
 
-int main(int argc, char const *argv[]){
+struct tree *ALL_TESTS = NULL;
+
+int __test_main(int argc, const char**argv){
   struct tree * tests = ALL_TESTS;
   if(1 < argc){
     tests = NULL;
@@ -123,6 +122,8 @@ int main(int argc, char const *argv[]){
   const int ret = parrallel_test(stderr, 1, list);
   return ret;
 }
-#define main save
-#undef save
-#endif
+
+__attribute__((weak))
+int main(int argc, char const *argv[]) {
+  return __test_main(argc,argv);
+}
