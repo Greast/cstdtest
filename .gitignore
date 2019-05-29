@@ -2,3 +2,4 @@ latex/
 html/
 *.o
 .gdb_history
+*.a
