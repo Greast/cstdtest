@@ -23,4 +23,5 @@ run-test : test
 	./test.out
 
 clean:
-	rm *.o  *.out *.a *so ; $(MAKE) clean -C cstdlib
+	$(MAKE) clean -C cstdlib -i
+	rm *.o  *.out *.a *so

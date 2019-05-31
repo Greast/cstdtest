@@ -19,7 +19,7 @@ struct test_data{
 #ifdef TEST
 #define ADD_TEST_FUNCTION(test_tree, name) \
   __attribute__((constructor)) \
-  void __init_##name__(){ \
+  void __init_ ## name ## __(){ \
     tree_add(test_tree, (gcmp_t) strcmp, #name, HEAPIFY((struct test_data){.test_function = name, .path = __FILE__ ":" LINE_STRING "::" #name }));\
   }
 #else

@@ -58,7 +58,7 @@ struct complete_tests{
   size_t succeded, failed, skipped;
 };
 
-int print_output(FILE * stream, struct test_data * td, struct test_function_result * tfr, struct complete_tests *tests){
+int print_output(FILE * stream, const struct test_data * td, const struct test_function_result * tfr, struct complete_tests *tests){
   if(tfr->return_code){
     ++tests->failed;
     fprintf(stream, ANSI_COLOR_RED "%s : ", td->path);
@@ -77,7 +77,7 @@ int print_output(FILE * stream, struct test_data * td, struct test_function_resu
 
 int parrallel_test(FILE* stream, const size_t num_cores, struct list * list){
   pthread_t threads[num_cores];
-  struct test_data * give_data[num_cores];
+  const struct test_data * give_data[num_cores];
   memset(give_data, 0, sizeof(give_data));
 
   struct complete_tests ct = {0,0,0};
@@ -85,10 +85,10 @@ int parrallel_test(FILE* stream, const size_t num_cores, struct list * list){
   size_t i = 0;
   while(list) {
     void * value = NULL;
-    if(!pthread_tryjoin_np(threads[i], &value) || !give_data[i]){
+    if(!give_data[i] || !pthread_tryjoin_np(threads[i], &value)){
       if(give_data[i]) print_output(stream, give_data[i], value, &ct);
       give_data[i] = list_remove(&list,0);
-      pthread_create(threads + i, NULL, pthread_run_test, give_data[i]);
+      pthread_create(threads + i, NULL, pthread_run_test, (void*)give_data[i]);
     }
     i = i + 1 % num_cores;
   }
