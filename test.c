@@ -113,7 +113,7 @@ int __test_main(int argc, const char**argv){
   if(1 < argc){
     tests = NULL;
     for (int i = 0; i < argc - 1; i++) {
-      void ** value = tree_get(tests, (gcmp_t)(strcmp), argv[i]);
+      const void * const* value = tree_get(tests, (gcmp_t)(strcmp), argv[i]);
       if(!value) fprintf(stderr, "Could not find test : %s\n", argv[i] );
       else tree_add(&tests, (gcmp_t)strcmp, argv[i], *value);
     }
