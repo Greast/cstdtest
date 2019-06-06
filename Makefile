@@ -1,22 +1,22 @@
-DIR = cstdlib
+DIR = cstdlib .
 LIB = pthread std
-CFLAGS= -DTEST $(addprefix  -I, $(DIR)) -fPIC -g3 -pedantic -Wall -Werror -Wextra  -Wuninitialized -Wmaybe-uninitialized -Werror=unused-function $(addprefix -L, $(DIR)) $(addprefix -l, $(LIB))
+CFLAGS= -DTEST $(addprefix  -I, $(DIR)) -g3 -pedantic -Wall -Werror -Wextra  -Wuninitialized -Wmaybe-uninitialized -Werror=unused-function $(addprefix -L, $(DIR)) $(addprefix -l, $(LIB))
 NAME = test
+TESTS = tests/list.o
 
-test : test.o $(FILES)
+test : test.o $(TESTS) $(FILES)
 	$(MAKE) static -C cstdlib
 	$(CC) -o $@.out $^ $(CFLAGS)
 
-shared : test.o
+shared : test.o $(TESTS)
 	$(MAKE) shared -C cstdlib
 	$(CC) -o lib$(NAME).so $^ -shared $(CFLAGS)
 
 
-static: test.o
+static: test.o $(TESTS)
 	$(MAKE) static -C cstdlib
-	cp cstdlib/libstd.a lib$(NAME).a
-	ar q lib$(NAME).a $^
-	#ar -rc lib$(NAME).a $^ $(find -name cstdlib "*.o")
+	ar -x cstdlib/libstd.a
+	ar -rc lib$(NAME).a $^ *.o
 
 
 run-test : test

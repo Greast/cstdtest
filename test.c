@@ -87,7 +87,7 @@ int parrallel_test(FILE* stream, const size_t num_cores, struct list * list){
     void * value = NULL;
     if(!give_data[i] || !pthread_tryjoin_np(threads[i], &value)){
       if(give_data[i]) print_output(stream, give_data[i], value, &ct);
-      give_data[i] = list_remove(&list,0);
+      give_data[i] = ((struct node*)list_remove(&list,0)) -> value;
       pthread_create(threads + i, NULL, pthread_run_test, (void*)give_data[i]);
     }
     i = i + 1 % num_cores;
@@ -112,13 +112,13 @@ int __test_main(int argc, const char**argv){
   struct tree * tests = ALL_TESTS;
   if(1 < argc){
     tests = NULL;
-    for (int i = 0; i < argc - 1; i++) {
-      const void * const* value = tree_get(tests, (gcmp_t)(strcmp), argv[i]);
+    for (int i = 1; i < argc; i++) {
+      const struct node * value = tree_get(ALL_TESTS, (gcmp_t)(strcmp), argv[i]);
       if(!value) fprintf(stderr, "Could not find test : %s\n", argv[i] );
-      else tree_add(&tests, (gcmp_t)strcmp, argv[i], *value);
+      else tree_add(&tests, (gcmp_t)strcmp, argv[i], value->value);
     }
   }
-  struct list * list = tree_values(tests);
+  struct list * list = tree_nodes(tests);
   const int ret = parrallel_test(stderr, 1, list);
   return ret;
 }
